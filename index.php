@@ -1,23 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php 
+<?php
+  header("Content-Type: text/html;charset=UTF-8"); 
   include("db.php");
-  $sql = "SELECT * FROM `news`";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
-    }
-} else {
-    echo "0 results";
-}
-$conn->close();
 ?>
 <head>
 
-  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -103,51 +92,35 @@ $conn->close();
 
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
-            <hr>
-            <div class="post-preview">
-              <a href="http://www.sasuma.pt/portal/index.php">
-                <h2 class="post-title">
-                  Um olhar através das janelas dos SASUMa - Exposição de fotografia
+          <div class='post-preview'>
+  <?php 
+    $sql = "SELECT * FROM `news` where inicio = 1 ORDER BY data DESC";
+    $result = $conn->query($sql);
+    
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+          echo"
+              <a href='http://localhost/sasuma/noticia/?id=".$row['id']."'>
+                <h2 class='post-title'>"
+                . $row['titulo']."
                 </h2>
-                <h3 class="post-subtitle">
-                  O prazo para a candidatura à bolsa Blandy Educação foi prorrogado até ao dia 9 de abril de 2019.
+                <h3 class='post-subtitle'>
+                ". $row['conteudo']."
                 </h3>
               </a>
-              <p class="post-meta">Postado por:
-                <a href="#">Administração</a>
-                on September 24, 2019</p>
-            </div>
-            <hr>
-            <div class="post-preview">
-              <a href="http://www.sasuma.pt/portal/index.php">
-                <h2 class="post-title">
-                  SIADAP - Eleição dos representantes dos trabalhadores
-                </h2>
-                <h3 class="post-subtitle">
-                  Recomendamos uma leitura atenta ao regulamento para ver se preenche os critérios de elegibilidade.
-                </h3>
-              </a>
-              <p class="post-meta">Postado por:
-                <a href="#">Administração</a>
-                on September 18, 2019</p>
-            </div>
-            <hr>
-            <div class="post-preview">
-              <a href="http://www.sasuma.pt/portal/index.php">
-                <h2 class="post-title">
-                  Candidatura à Bolsa Blandy Educação - 2018-2019
-                </h2>
-                <h3 class="post-subtitle">
-                  Informamos que está em curso a candidatura à Bolsa Blandy Educação que poderá ser efetuada até às 24
-                  horas do dia 02 de abril de 2019.
-                </h3>
-              </a>
-              <p class="post-meta">Postado por:
-                <a href="#">Administração</a>
-                on August 24, 2019</p>
-            </div>
-            <hr>
-            <!-- Pager -->
+              <p class='post-meta'>Postado por:
+                <b>Administração</b>
+                ".$row['data']."</p> <hr>";
+            }
+    } else {
+        echo "Nao exitem noticias a aprensentar.";
+    }
+    $conn->close();
+           
+    ?> 
+</div>
+
             <div class="clearfix">
               <a class="btn btn-primary float-right" href="#">MAIS NOTÍCIAS &rarr;</a>
             </div>
