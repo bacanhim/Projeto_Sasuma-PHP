@@ -51,7 +51,7 @@
             <a class="nav-link" href="arquivo.php">NOTÍCIAS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="candidatura.php">CANDIDATURA</a>
+            <a class="nav-link" href="candidatura.html">CANDIDATURA</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="refeicoes.php">REFEIÇÕES</a>
@@ -82,12 +82,12 @@
   <!-- MAIN CONTENT -->
   <div class="container">
     <div class="col-lg-12 text-center">
-      <h2 class="mb-5">NOTÍCIAS</h2>
+      <h2 class="mb-5">ARQUIVO DE NOTÍCIAS</h2>
       <hr>
       <!-- NOTICIA 1-->
       
               <?php 
-                $sql = "SELECT * FROM `noticias` where importante = 1 ORDER BY data DESC";
+                $sql = "SELECT * FROM `noticias` ORDER BY data DESC";
                 $result = $conn->query($sql);
                 
                 if ($result->num_rows > 0) {
@@ -110,7 +110,7 @@
                             . $row['titulo']."
                             </h2>
                             <p class='post-meta'>
-                            ". $row['prev_desc']."
+                            ". $row['descricao']."
                             </p>
                           </a>
                           <p class='post-meta'>Postado por:
@@ -121,7 +121,7 @@
                         </div><hr>";
                         }
                   } else {
-                      echo "Nao exitem noticias a aprensentar.";
+                      echo "Nao exitem noticias a apresentar.";
                   }
                   $conn->close();
                       
